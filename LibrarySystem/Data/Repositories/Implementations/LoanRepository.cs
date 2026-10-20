@@ -28,7 +28,10 @@ namespace LibrarySystem.Data.Repositories.Implementations
 		}
 
 		public async Task<Loan?> ReadByIdAsync(Guid id, CancellationToken cancellationToken)
-			=> await _context.Loans.Include(l => l.Book).FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
+			=> await _context.Loans
+			.Include(l => l.Book)
+			.Include(l => l.User)
+			.FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
 
 		public async Task UpdateAsync(Loan loan, CancellationToken cancellationToken)
 		{

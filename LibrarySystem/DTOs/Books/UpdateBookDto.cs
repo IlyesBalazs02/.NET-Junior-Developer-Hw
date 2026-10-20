@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LibrarySystem.DTOs.Books
 {
-	public class UpdateDto
+	public class UpdateBookDto
 	{
 		[Required, StringLength(BookConstraints.TitleMaxLength)]
 		public string Title { get; set; } = null!;

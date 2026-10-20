@@ -2,6 +2,8 @@
 using LibrarySystem.Data;
 using LibrarySystem.Data.Repositories.Implementations;
 using LibrarySystem.Data.Repositories.Interfaces;
+using LibrarySystem.Services.Implementations;
+using LibrarySystem.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySystem
@@ -24,6 +26,10 @@ namespace LibrarySystem
 			builder.Services.AddScoped<IBookRepository, BookRepository>();
 			builder.Services.AddScoped<ILoanRepository, LoanRepository>();
 			builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+			builder.Services.AddScoped<IBookService, BookService>();
+			builder.Services.AddScoped<ILoanService, LoanService>();
+			builder.Services.AddScoped<IUserService, UserService>();
 
 			var app = builder.Build();
 

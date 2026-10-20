@@ -1,6 +1,7 @@
 ﻿using LibrarySystem.Data.Repositories.Interfaces;
 using LibrarySystem.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace LibrarySystem.Data.Repositories.Implementations
 {
@@ -22,6 +23,9 @@ namespace LibrarySystem.Data.Repositories.Implementations
 				.AsNoTracking()
 				.ToListAsync(cancellationToken);
 		}
+
+		public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+			=> await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
 
 	}
 }
