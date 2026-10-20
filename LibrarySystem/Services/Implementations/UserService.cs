@@ -1,5 +1,6 @@
 ﻿using LibrarySystem.Data.Repositories.Interfaces;
 using LibrarySystem.DTOs.Users;
+using LibrarySystem.Exceptions;
 using LibrarySystem.Mappings;
 using LibrarySystem.Services.Interfaces;
 
@@ -28,6 +29,15 @@ namespace LibrarySystem.Services.Implementations
 			var users = await _userRepository.ReadAllAsync(cancellationToken);
 
 			return users.Select(u => u.ToDto()).ToList();
+		}
+
+		public async Task<UserDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+		{
+			var user = await _userRepository.GetByIdAsync(id, cancellationToken);
+
+			if (user == null) throw new NotFoundException("User not found");
+
+			return user.ToDto();
 		}
 	}
 }

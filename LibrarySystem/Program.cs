@@ -2,6 +2,7 @@
 using LibrarySystem.Data;
 using LibrarySystem.Data.Repositories.Implementations;
 using LibrarySystem.Data.Repositories.Interfaces;
+using LibrarySystem.Middleware;
 using LibrarySystem.Services.Implementations;
 using LibrarySystem.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,8 @@ namespace LibrarySystem
 				var context = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
 				DbInitializer.Initialize(context);
 			}
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 			// Configure the HTTP request pipeline.
 			if (app.Environment.IsDevelopment())

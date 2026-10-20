@@ -55,5 +55,14 @@ namespace LibrarySystem.Services.Implementations
 
 			return book.ToDto();
 		}
+
+		public async Task<BookDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+		{
+			var book = await _bookRepo.GetByIdAsync(id, cancellationToken);
+
+			if (book == null) throw new NotFoundException("Book not found.");
+
+			return book.ToDto();
+		}
 	}
 }

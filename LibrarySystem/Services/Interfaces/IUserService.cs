@@ -6,5 +6,6 @@ namespace LibrarySystem.Services.Interfaces
 	{
 		Task<IReadOnlyList<UserDto>> ListAllAsync(CancellationToken cancellationToken);
 		Task<UserDto> RegisterAsync(RegisterUserDto registerUserDto, CancellationToken cancellationToken);
+		Task<UserDto> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 	}
 }

@@ -55,5 +55,14 @@ namespace LibrarySystem.Services.Implementations
 			var loans = await _loanRepository.ReadAllActiveAsync(cancellationToken);
 			return loans.Select(l => l.ToDto()).ToList();
 		}
+
+		public async Task<LoanDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+		{
+			var loan = await _loanRepository.ReadByIdAsync(id, cancellationToken);
+
+			if (loan == null) throw new NotFoundException("Loan not found.");
+
+			return loan.ToDto();
+		}
 	}
 }
