@@ -1,4 +1,7 @@
 
+using LibrarySystem.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace LibrarySystem
 {
     public class Program
@@ -14,10 +17,18 @@ namespace LibrarySystem
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            var app = builder.Build();
+			builder.Services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryDb"));
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+			var app = builder.Build();
+
+			using (var scope = app.Services.CreateScope())
+			{
+				var context = scope.ServiceProvider.GetRequiredService<LibraryDbContext>();
+				DbInitializer.Initialize(context);
+			}
+
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();

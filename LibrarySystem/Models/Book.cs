@@ -33,14 +33,14 @@ namespace LibrarySystem.Models
 		public void Update(string title, string author, string isbn, int publishedYear)
 		=> SetProperties(title, author, isbn, publishedYear);
 
-		public void Borrowed()
+		public void MarkAsBorrowed()
 		{
 			if (!IsAvailable)
 				throw new ModelValidationException("Book is already borrowed");
 			IsAvailable = false;
 		}
 
-		public void Returned()
+		public void MarkAsReturned()
 		{
 			if (IsAvailable)
 				throw new ModelValidationException("Book is not on loan");
