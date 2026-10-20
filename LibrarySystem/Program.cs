@@ -1,5 +1,7 @@
 
 using LibrarySystem.Data;
+using LibrarySystem.Data.Repositories.Implementations;
+using LibrarySystem.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibrarySystem
@@ -18,6 +20,10 @@ namespace LibrarySystem
             builder.Services.AddSwaggerGen();
 
 			builder.Services.AddDbContext<LibraryDbContext>(options => options.UseInMemoryDatabase("LibraryDb"));
+
+			builder.Services.AddScoped<IBookRepository, BookRepository>();
+			builder.Services.AddScoped<ILoanRepository, LoanRepository>();
+			builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 			var app = builder.Build();
 
