@@ -36,14 +36,14 @@ namespace LibrarySystem.Models
 		public void MarkAsBorrowed()
 		{
 			if (!IsAvailable)
-				throw new ModelValidationException("Book is already borrowed");
+				throw new ConflictException("Book is already borrowed");
 			IsAvailable = false;
 		}
 
 		public void MarkAsReturned()
 		{
 			if (IsAvailable)
-				throw new ModelValidationException("Book is not on loan");
+				throw new ConflictException("Book is not on loan");
 			IsAvailable = true;
 		}
 

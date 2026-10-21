@@ -27,5 +27,8 @@ namespace LibrarySystem.Data.Repositories.Implementations
 		public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
 			=> await _context.Users.FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
 
+		public async Task<bool> ExistsByEmailAsync(string email, CancellationToken cancellationToken)
+			=> await _context.Users.AnyAsync(u => u.Email.ToLower() == email.Trim().ToLower(), cancellationToken);
+		
 	}
 }

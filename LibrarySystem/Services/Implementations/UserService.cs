@@ -19,6 +19,9 @@ namespace LibrarySystem.Services.Implementations
 		{
 			var user = registerUserDto.ToEntity(DateTime.UtcNow);
 
+			if (await _userRepository.ExistsByEmailAsync(user.Email, cancellationToken))
+				throw new ConflictException("A user with this email already exists.");
+
 			await _userRepository.CreateAsync(user, cancellationToken);
 
 			return user.ToDto();

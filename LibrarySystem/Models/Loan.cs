@@ -35,7 +35,7 @@ namespace LibrarySystem.Models
 		public void Return(DateTime returnDate)
 		{
 			if (ReturnDate is not null)
-				throw new Exception("This loan has already been returned");
+				throw new ConflictException("This loan has already been returned");
 			if (returnDate < LoanDate)
 				throw new ModelValidationException("Return date can't be earlier than the loan date");
 

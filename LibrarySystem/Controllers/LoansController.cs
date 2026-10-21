@@ -18,7 +18,7 @@ namespace LibrarySystem.Controllers
 			_loanService = loanService;
 		}
 
-		[HttpGet]
+		[HttpGet("active")]
 		[ProducesResponseType(typeof(IReadOnlyList<LoanDto>), StatusCodes.Status200OK)]
 		public async Task<ActionResult<IReadOnlyList<LoanDto>>> GetAllActive(CancellationToken cancellationToken)
 			=> Ok(await _loanService.ListActiveAsync(cancellationToken));
@@ -32,6 +32,7 @@ namespace LibrarySystem.Controllers
 		[ProducesResponseType(typeof(LoanDto), StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult<LoanDto>> Borrow(BorrowDto borrowDto, CancellationToken cancellationToken)
 		{
 			var loan = await _loanService.BorrowAsync(borrowDto, cancellationToken);
@@ -42,6 +43,7 @@ namespace LibrarySystem.Controllers
 		[HttpPut("{id:guid}/return")]
 		[ProducesResponseType(typeof(LoanDto), StatusCodes.Status200OK)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult<LoanDto>> Return(Guid id, CancellationToken cancellationToken)
 			=> Ok(await _loanService.ReturnAsync(id, cancellationToken));
 	}

@@ -30,6 +30,7 @@ namespace LibrarySystem.Controllers
 		[HttpPost]
 		[ProducesResponseType(typeof(UserDto), StatusCodes.Status201Created)]
 		[ProducesResponseType(StatusCodes.Status400BadRequest)]
+		[ProducesResponseType(StatusCodes.Status409Conflict)]
 		public async Task<ActionResult<UserDto>> Register(RegisterUserDto registerUserDto, CancellationToken cancellationToken)
 		{
 			var user = await _userService.RegisterAsync(registerUserDto, cancellationToken);

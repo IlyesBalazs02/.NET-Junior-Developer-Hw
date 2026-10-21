@@ -31,6 +31,8 @@ namespace LibrarySystem.Models
 			email = email.Trim().ToLower();
 			if (email.Length > UserConstraints.EmailMaxLength)
 				throw new ModelValidationException($"Email can be at most {UserConstraints.EmailMaxLength} characters");
+			if (!MailAddress.TryCreate(email, out var parsed) || parsed.Address != email)
+				throw new ModelValidationException("Email is not valid");
 
 			if (registeredDate == default(DateTime))
 				throw new ModelValidationException("Registered date is required");
